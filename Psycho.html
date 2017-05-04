@@ -29,32 +29,76 @@
 		text-align: center;
 		margin-top: 15px;
 	}
-	#highscore_div {
+	#userInput {
 		width:640px;
 		min-height: 25px;
 		background-color: transparent;
 		text-align: center;
 		margin: auto;
+		margin-top: 15px;
+	}
+	#content {
+		width: 640px;
+		min-height: 50px;
+		background-color: transparent;
+		margin: auto;
+	}
+	#howto {
+		width:310px;
+		min-height: 25px;
+		background-color: transparent;
+		text-align: left;
+		margin: auto;
+		float:left;
+		border-right:1px solid black;
+		padding-right: 5px;
+	}
+	#highscore_div {
+		width:310px;
+		min-height: 25px;
+		background-color: transparent;
+		margin: auto;
+		float: left;
+		padding-left: 5px;
+	}
+	#footer {
+		width:100%;
+		height: 0px;
+		clear: both;
 	}
 	.largeText {
-		font-size: 72px;
+		font-size: 64px;
 		text-align: center;
-		font-family: 'Amatic SC', cursive;
 	}
-	.smallText {
+	.medText {
 		font-size: 48px;
 		text-align: center;
-		font-family: 'Amatic SC', cursive;
 	}
-	.text {
+	.smallText {
 		font-size: 32px;
 		text-align: center;
+	}
+	.text {
+		font-size: 18px;
+		text-align: center;
+	}
+	.amatic {
 		font-family: 'Amatic SC', cursive;
+	}
+	.arial {
+		font-family: 'Arial';
+	}
+	.bold {
+		font-weight: bold;
+	}
+	.underline {
+		text-decoration: underline;
+	}
+	.red {
+		color:red;
 	}
 	input[type=text], select {
 		width: 200px;
-		padding: 12px 20px;
-		margin: 8px 0;
 		display: inline-block;
 		border: 1px solid #ccc;
 		border-radius: 4px;
@@ -63,10 +107,10 @@
 
 	button[type=submit] {
 		width: 150px;
+		height: 45px;
 		background-color: #4CAF50;
 		color: white;
-		padding: 14px 20px;
-		margin: 8px 0;
+		padding: -10px 0px;
 		border: none;
 		border-radius: 4px;
 		cursor: pointer;
@@ -75,6 +119,29 @@
 
 	button[type=submit]:hover {
 		background-color: #45a049;
+	}
+	#scoreTable {
+		width:100%;
+		min-height: 10px;
+		background-color: transparent;
+	}
+	.scoreRow {
+		width:100%;
+		height: 30px;
+		background-color: transparent;
+	}
+	.scoreDataLeft {
+		width:50%;
+		height: 10px;
+		padding-right: 15px;
+		background-color: transparent;
+		text-align: right;
+	}
+	.scoreDataRight {
+		width:50%;
+		height: 10px;
+		padding-left: 15px;
+		background-color: transparent;
 	}
 </style>
 
@@ -89,19 +156,50 @@
 <div id="nameBox">
 
 	<!-- Username input box -->
-	<form method="post" name="playerForm" id="myForm">
-			  <div class="form-group">
-				<label for="name" class="smallText">Name: </label>
-				<input type="text" class="form-control text" id="name" required placeholder="Enter username">
-				<button type="submit" value="Submit" onclick="getPlayerName(); return false;" class="btn btn-primary addValue smallText">Submit</button>
-			  </div>
-	</form>
-	
-	<br><hr><br>
-	
-	<div id="highscore_div">
-		<span class="largeText">Leaderboard:</span> <span class="smallText"> (Top 25)</span>
+	<div id="userInput">
+		<form method="post" name="playerForm" id="myForm">
+				  <div class="form-group">
+					<label for="name" class="smallText amatic">Name: </label>
+					<input type="text" class="form-control smallText amatic" id="name" required placeholder="Enter username">
+					<button type="submit" value="Submit" onclick="getPlayerName(); return false;" class="btn btn-primary addValue smallText amatic">Submit</button>
+				  </div>
+		</form>
+		
+		<br><br>
 	</div>
+	
+	<div id="content">
+		<div id="howto">
+			<span class="medText amatic bold underline">How to Start:</span>
+			
+			<span class="text arial"> 
+				<br><br> Step 1: Type username above <br> Step 2: Click black sqaure <br><br> 
+
+				<span class="medText amatic bold underline">Instructions:</span> <br><br>
+				You have a total of <span class="red bold">5 minutes</span> to get as many clicks as possible in... but that's too easy. 
+
+				<br><br> <span class="red bold">You can't click any later</span> than 10 seconds per click, and <span class="red bold">you can't press any sooner</span>  than... well... sometime between 8 seconds and 3 seconds per click. 
+
+				<br><br> I'm not sure too be honest. That part, I'll leave up to you. 
+				
+				<br><br> <span class="red bold">The goal of this game</span> is to fight against yourself in determining when the best time to click would be. You can always get a <span class="red bold">successful click at 3 seconds or below</span>, but you'll never reach the top of the leaderboards if you're too cautious!
+			</span>
+		</div>
+
+		<div id="highscore_div">
+			<div align="right"><span class="largeText amatic bold ">Leaderboard:</span> <span class="smallText amatic"> (Top 15)</span></div>
+			<table id="scoreTable">
+				<tr class="scoreRow"><td class="scoreDataLeft"><span class="smallText amatic bold">Player:</span></td><td class="scoreDataRight"><span class="smallText amatic bold">Score:</span></td></tr>
+			</table>
+		</div>
+		<div id="footer"></div>
+	</div>
+	
+	<!-- AUDIO -->
+	<audio id="successSound" src="successButton2.mp3"></audio>
+	<audio id="submitSound" src="submitClick3.mp3"></audio>
+	<audio id="gameOverSound" src="gameOver.mp3"></audio>
+	<audio id="mainMusic" src="108_game.mp3" loop></audio>
 
 </div>
 
@@ -144,7 +242,7 @@
 	
 	//load older conatcts as well as any newly added one...
 	playerRef.on("child_added", function(snap) {
-	  console.log("key:" + snap.key() + ", val:" + snap.val());
+	  //console.log("key:" + snap.key() + ", val:" + snap.val());
 	  playerID = snap.key();
 	  document
 		.querySelector('#name')
@@ -156,15 +254,18 @@
 	  .querySelector('.addValue')
 	  .addEventListener("click", function( event ) {  
 		event.preventDefault();
-		if( document.querySelector('#name').value != ''){
+		
+		var myName = document.querySelector('#name').value;
+		
+		if(checkNameRules(myName)) {
 		  playerRef
 			.push({
-			  playerName: document.querySelector('#name').value,
+			  playerName: myName,
 			  playerScore: pScore,
 			})
 			playerForm.reset();
 		} else {
-		  alert('Please fill username');
+		  alert('Please enter a username. Must be between 3 and 15 characters.');
 		}
 	  }, false);
 
@@ -191,7 +292,7 @@
 				//console.log("key:" + snap.key() + ", data:" + playerID)
 				
 				if(snap.key() == playerID) {
-					console.log("MATCH!")
+					//console.log("MATCH!")
 					playerRef.child(snap.key()).set({
 						"playerName" : pName,
 						"playerScore" : pScore
@@ -272,7 +373,7 @@
 		
 		// Call to display leaderboard results
 		document
-		.querySelector('#highscore_div')
+		.querySelector('#scoreTable')
 		.innerHTML += displayLeaderboard(leaderboard_name, leaderboard_score);
 	}
 	
@@ -280,11 +381,11 @@
 	function displayLeaderboard(leaderboard_name, leaderboard_score) {
 		var leaderboard = ''; 
 		var i, j;
-		var maxDisplay = 25;
+		var maxDisplay = 15;
 		
 		for(i = 0; i < leaderboard_name.length; i++) {
 			if(i < maxDisplay) // Display only certain number of results
-				leaderboard += '<br><span class="smallText">' + leaderboard_name[i] + ': ' + leaderboard_score[i] + '</span>'; 
+			leaderboard += '<tr class="scoreRow"><td class="scoreDataLeft"><span class="smallText amatic">' + leaderboard_name[i] + ': ' + '</span></td><td class="scoreDataRight"><span class="smallText amatic">' + leaderboard_score[i] + '</span></td></tr>';
 			else 
 				return leaderboard;
 		}
@@ -301,8 +402,17 @@
 	// Get player name from input box
 	function getPlayerName() { 
 		pName = document.getElementById('name').value;
+		audioClip("submitSound");
 		getLeaderboard();
 	 }
+	
+	// Checks name creation rules
+	function checkNameRules(name) {
+		if(name != '' && name != null && name != '' && name != "" && name.length >= 3 && name.length <= 15 && /^[0-9a-zA-Z]+$/.test(name))
+			return true;
+		else 
+			return false;
+	}
 
 </script>
 
@@ -324,16 +434,20 @@
 	var canvasTimer = 0;
 	var tT = 0; // Time timer
 	
+	// Game variables
 	var gameOver = true;
 	var isGameOverScreen = false;
 	var canClick = false;
 	var isSuccess = false;
 	var successTimer = 0;
+	var audioTimer = 0;
+	var audioTimer_GO = 0;
 	
 	//DB Player info
 	var pScore = 0; // Player score to send to database
 	var pName = null; // Player name to send to database
 	var hasUsername = false; // Has the player set a username?
+	
 
 	// Rect Info
 	elements.push({
@@ -347,10 +461,10 @@
 	// Game Title
 	var gameTtle = {
 		myFill:'red',
-		font:'72px Arial',
+		font:'128px Amatic SC, cursive',
 		name:"Psycho!",
 		x:200,
-		y:175
+		y:225
 	};
 	
 	// Large Text
@@ -389,7 +503,7 @@
 	var clickMin = {
 		default:6,
  		time:6,
-		maxNum:1,
+		maxNum:6,
 		myFill:'black',
 	};
 	
@@ -421,6 +535,10 @@
 	// Game-start splash screen
 	function gameStartScreen() {
 		context.clearRect(0,0,cWidth,cHeight);
+		
+		// Reset gameover sound
+		audioTimer_GO = 0;
+		
 		context.font = gameTtle.font;
 		context.fillStyle = gameTtle.myFill;
 		context.fillText(gameTtle.name, gameTtle.x, gameTtle.y);
@@ -431,7 +549,7 @@
 		
 		context.font = medText.font;
 		context.fillStyle = medText.myFill;
-		context.fillText("Your High Score: " + player.highScore, 225, 225);
+		context.fillText("Your High Score: " + player.highScore, 225, 265);
 
 		context.font = medText.font;
 		context.fillStyle = medText.myFill;
@@ -448,16 +566,22 @@
 	function gameOverScreen() {
 		isGameOverScreen = true;
 		
+		// Play gameover sound once
+		if(audioTimer_GO == 0)
+			audioClip("gameOverSound");
+		
+		audioTimer_GO++;
+		
 		context.clearRect(0,0,cWidth,cHeight);
 		context.font = gameTtle.font;
 		context.fillStyle = gameTtle.myFill;
-		context.fillText("You Lost!", 175, 200);
+		context.fillText("Game Over!", 125, 350);
 		
 		var time = fancyTimeFormat(resetTime.time);
 		
 		context.fillStyle = resetTime.myFill;
 		context.font = medText.font;
-		context.fillText(time, 300, 250);
+		context.fillText(time, 300, 400);
 		
 		if(tT % 10 == 0)
 			resetTime.time -= 1;
@@ -669,7 +793,7 @@
 	function checkUser() {
 		
 		// Check username length and contents
-		if(pName != null && pName.length >= 3 && /^[a-zA-Z]+$/.test(pName))
+		if(checkNameRules(pName))
 			hasUsername = true;
 		
 		if(hasUsername == false) {
@@ -699,12 +823,50 @@
 			sendHighScore(); // Send highscore to DB score variable
 		}
 	}
+	
+	function audioClip(audio) {
+		
+		var curAudio;
+		
+		switch (audio) {
+			case "successSound":
+				curAudio = document.getElementById('successSound');
+				break;
+			case "submitSound":
+				curAudio = document.getElementById('submitSound');
+				break;
+			case "gameOverSound":
+				curAudio = document.getElementById('gameOverSound');
+				break;
+			default:
+				console.log(audio + " did not play");
+				break;
+		}
+		
+		curAudio.play();
+		curAudio.volume = .5;
+		
+	}
+	
+	function playMainMusic() {		
+		var mainMusic = document.getElementById('mainMusic');
+		mainMusic.play();
+		mainMusic.volume = .7;
+	}
+	
+	function stopMainMusic() {
+		audioTimer = -1;
+		document.getElementById('mainMusic').pause();
+		document.getElementById('mainMusic').currentTime = 0;
+	}
 		
 	// Main function calling for game updates
 	function update() {
 		
 		// increase timer
 		tT += 1;
+		
+		console.log("clickMin:" + clickMin.time);
 		
 		if(hasUsername == false) {
 			askForUsername();
@@ -729,8 +891,15 @@
 
 					if(isSuccess)
 						success();
-				} else
+					
+					if(audioTimer == 0)
+						playMainMusic();
+					
+					audioTimer++;
+				} else {
+					stopMainMusic();
 					gameOverScreen();
+				}
 			}
 		}
 	}
@@ -756,6 +925,7 @@
 						resetClickMin(); // reset minimum timer
 						player.points += 1; // increase player's points
 						canvasTimer += 1; // changes bg color timer
+						audioClip("successSound");
 						
 						successClick.rando = getRandom(10);
 						isSuccess = true;
