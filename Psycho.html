@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <title>Psycho</title>
 
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+
 <style>
 	#container {
 		width: 640px;
@@ -33,15 +35,46 @@
 		background-color: transparent;
 		text-align: center;
 		margin: auto;
-		margin-top: 50px;
 	}
-	#largeText {
-		font-size: 36px;
+	.largeText {
+		font-size: 72px;
 		text-align: center;
+		font-family: 'Amatic SC', cursive;
 	}
-	#smallText {
-		font-size: 18px;
+	.smallText {
+		font-size: 48px;
 		text-align: center;
+		font-family: 'Amatic SC', cursive;
+	}
+	.text {
+		font-size: 32px;
+		text-align: center;
+		font-family: 'Amatic SC', cursive;
+	}
+	input[type=text], select {
+		width: 200px;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	button[type=submit] {
+		width: 150px;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		margin-left: 25px;
+	}
+
+	button[type=submit]:hover {
+		background-color: #45a049;
 	}
 </style>
 
@@ -58,15 +91,16 @@
 	<!-- Username input box -->
 	<form method="post" name="playerForm" id="myForm">
 			  <div class="form-group">
-				<label for="name">Name</label>
-				<input type="text" class="form-control" id="name" required placeholder="Enter username">
-				<button type="submit" onclick="getPlayerName(); return false;" class="btn btn-primary addValue">Submit</button>
+				<label for="name" class="smallText">Name: </label>
+				<input type="text" class="form-control text" id="name" required placeholder="Enter username">
+				<button type="submit" value="Submit" onclick="getPlayerName(); return false;" class="btn btn-primary addValue smallText">Submit</button>
 			  </div>
 	</form>
 	
+	<br><hr><br>
+	
 	<div id="highscore_div">
-		<span id="largeText">Leaderboard:</span>
-		<span id="smallText"></span>
+		<span class="largeText">Leaderboard:</span> <span class="smallText"> (Top 25)</span>
 	</div>
 
 </div>
@@ -88,6 +122,7 @@
 <script src="https://cdn.firebase.com/js/client/2.2.3/firebase.js"></script>
 	
 <script>
+	// Firebase reference from http://time2hack.com/2015/03/intro-to-firebase-with-javascript-and-jquery.html
 	
 	// Initialize Firebase
 	var config = {
@@ -138,9 +173,7 @@
 	  //console.log( psychoPlayers ); 
 	  var html = ''; 
 	  html += '<li class="list-group-item psychoPlayers">'; 
-		html += '<div>'; 
-		  html += '<p class="lead">'+psychoPlayers.name+'</p>'; 
-		html += '</div>'; 
+		  html += '<span id="smallText">'+psychoPlayers.name+'</span>'; 
 	  html += '</li>'; 
 	  return html; 
 	} 
@@ -168,23 +201,95 @@
 		});
 	}
 	
-	// get leaderboard results and display them
+	// get leaderboard results
 	function getLeaderboard() {
-		
 		
 		var leaderboard_score = [];
 		var leaderboard_name = [];
+		
+		// i is for going through name/score, j is for going through the arrays
+		var i = 0, j = 0, k = 0;
 		
 		playerRef.on("child_added", function(snap) {
 			
 			//scrub through users
 			snap.forEach(function(childSnapshot) {
-				var key = childSnapshot.key();
-				var childData = childSnapshot.val();	
-				console.log("leadKey:" + key + ", leadData:" + childData);
 				
-				})
-			});
+				var key = childSnapshot.key();
+				var childData = childSnapshot.val();
+				
+				// switch between assigning name or score
+				if(i % 2 == 0) {
+					leaderboard_name[j] = childData;
+				} else {
+					leaderboard_score[j] = childData;
+					j++;
+				}
+								
+				i++;
+				
+			})
+		});
+				
+		/**
+			for(k = 0; k < leaderboard_name.length; k++) {
+				console.log("lead_name: " + leaderboard_name[k] + ", lead_score: " + leaderboard_score[k]);
+			}
+		**/
+		
+		// Call to sort leaderboard results
+		sortLeaderboard(leaderboard_name, leaderboard_score);
+	}
+	
+	// Sort leaderboard results (Max -> Min)
+	function sortLeaderboard(leaderboard_name, leaderboard_score) {
+		var i, j, max;
+		var temp_name, temp_score = 0;
+		var arrSize = leaderboard_name.length;
+		var sorted_name = [], sorted_score = [];
+
+		for(i = 0; i < arrSize - 1; i++) {
+			
+			max = i;
+			
+			for(j = i + 1; j < arrSize; j++) {
+				if(leaderboard_score[j] > leaderboard_score[max]) {
+					max = j;
+				}
+			}
+			
+			if(max != i) {
+				temp_name = leaderboard_name[max];
+				temp_score = leaderboard_score[max];
+				
+				leaderboard_name[max] = leaderboard_name[i];
+				leaderboard_score[max] = leaderboard_score[i];
+				
+				leaderboard_name[i] = temp_name;
+				leaderboard_score[i] = temp_score;
+			}
+		}
+		
+		// Call to display leaderboard results
+		document
+		.querySelector('#highscore_div')
+		.innerHTML += displayLeaderboard(leaderboard_name, leaderboard_score);
+	}
+	
+	// Display leaderboard results
+	function displayLeaderboard(leaderboard_name, leaderboard_score) {
+		var leaderboard = ''; 
+		var i, j;
+		var maxDisplay = 25;
+		
+		for(i = 0; i < leaderboard_name.length; i++) {
+			if(i < maxDisplay) // Display only certain number of results
+				leaderboard += '<br><span class="smallText">' + leaderboard_name[i] + ': ' + leaderboard_score[i] + '</span>'; 
+			else 
+				return leaderboard;
+		}
+		
+		return leaderboard; 
 	}
 	
 	// Send highscore to database variable
@@ -568,9 +673,9 @@
 			hasUsername = true;
 		
 		if(hasUsername == false) {
-			console.log("No name inputted");
+			//console.log("No name inputted");
 		} else {
-			console.log("Name: " + pName);
+			//console.log("Name: " + pName);
 			hasUsername = true;
 		}
 	}
@@ -584,7 +689,7 @@
 		
 		context.font = medText.font;
 		context.fillStyle = gameTtle.myFill;
-		context.fillText("Please enter username below!", 175, 600);
+		context.fillText("Please enter username below to start!", 125, 600);
 	}
 	
 	// Check if player's score is higher than any of their previous attempts
