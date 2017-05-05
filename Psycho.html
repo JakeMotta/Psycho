@@ -324,6 +324,7 @@
 	var successTimer = 0;
 	var audioTimer = 0;
 	var audioTimer_GO = 0;
+	var turnNum = 0; 
 
 	//DB Player info
 	var pScore = 0; // Player score to send to database
@@ -383,9 +384,9 @@
 
 	// Time until player can clik
 	var clickMin = {
-		default:6,
- 		time:6,
-		maxNum:6,
+		default:7,
+ 		time:7,
+		maxNum:7,
 		myFill:'black',
 	};
 
@@ -543,9 +544,29 @@
 
 		context.fillStyle = clickMin.myFill;
 		context.font = largeText.font;
-		context.fillText(time, 285, 525, 0);
-
-		if(tT % 10 == 0)
+		
+		
+		// Fade effect for when to click
+		if(turnNum == 0) {
+			context.fillText(time, 285, 525);
+		}
+		else if(turnNum > 0 && turnNum <= 1) {
+			context.fillStyle = "rgba(0, 0, 0, 0.7)";
+			context.fillText(time, 285, 525);
+		}
+		else if(turnNum > 1 && turnNum <= 2) {
+			context.fillStyle = "rgba(0, 0, 0, 0.5)";
+			context.fillText(time, 285, 525);
+		}
+		else if(turnNum > 2 && turnNum <= 3) {
+			context.fillStyle = "rgba(0, 0, 0, 0.3)";
+			context.fillText(time, 285, 525);
+		}
+		else
+			context.fillText(time, 285, 525, 0);
+		
+		
+		if(tT % 10 == 0 && clickMin.time > 0)
 			clickMin.time -= 1;
 	}
 
@@ -746,6 +767,21 @@
 		document.getElementById('mainMusic').pause();
 		document.getElementById('mainMusic').currentTime = 0;
 	}
+	
+	function incTurn() {
+		turnNum += 1;
+		console.log(turnNum);
+	}
+	
+	function updateInstructions() {
+		context.font = medText.font;
+		context.fillStyle = gameTtle.myFill;
+		context.fillText("Click before 0! ->", 50, 370);
+		
+		context.font = medText.font;
+		context.fillStyle = gameTtle.myFill;
+		context.fillText("Click after 0! ->", 100, 450);
+	}
 
 	// Main function calling for game updates
 	function update() {
@@ -770,6 +806,7 @@
 					updateTimer();
 					updateClickMax();
 					updateClickMin();
+					updateInstructions();
 					updatePlayer();
 					checkGame();
 					drawRect();
@@ -807,7 +844,7 @@
 					tT = 0; // reset timer
 				} else { // If in-game
 					// Clickced on the right time
-					if(clickMin.time < 0 && clickMax.time >= 0) {
+					if(clickMin.time <= 0 && clickMax.time >= 0) {
 						resetClickMax(); // reset max timer
 						resetClickMin(); // reset minimum timer
 						player.points += 1; // increase player's points
@@ -816,6 +853,8 @@
 
 						successClick.rando = getRandom(10);
 						isSuccess = true;
+						
+						incTurn();
 					} else { // Not clicked on the right time
 
 						// If the player scores higher this round than previous
