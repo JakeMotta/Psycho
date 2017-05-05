@@ -5,169 +5,8 @@
 <title>Psycho</title>
 
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-
-<style>
-	#container {
-		width: 640px;
-		background-color: transparent;
-		margin: auto;
-		min-height: 10px;
-		padding-top: 75px;
-	}
-	#nameBox {
-		width:100%;
-		min-height:5px;
-		background-color: transparent;
-		margin: auto;
-	}
-	#myForm {
-		margin: auto;
-		text-align: center;
-	}
-	#myForm2 {
-		margin: auto;
-		text-align: center;
-		margin-top: 15px;
-	}
-	#userInput {
-		width:640px;
-		min-height: 25px;
-		background-color: transparent;
-		text-align: center;
-		margin: auto;
-		margin-top: 15px;
-	}
-	#content {
-		width: 640px;
-		min-height: 50px;
-		background-color: transparent;
-		margin: auto;
-	}
-	#howto {
-		width:310px;
-		min-height: 25px;
-		background-color: transparent;
-		text-align: left;
-		margin: auto;
-		float:left;
-		border-right:1px solid black;
-		padding-right: 5px;
-	}
-	#highscore_div {
-		width:310px;
-		min-height: 25px;
-		background-color: transparent;
-		margin: auto;
-		float: left;
-		padding-left: 5px;
-	}
-	#footer {
-		width:100%;
-		height: 0px;
-		clear: both;
-	}
-	.largeText {
-		font-size: 64px;
-		text-align: center;
-	}
-	.medText {
-		font-size: 48px;
-		text-align: center;
-	}
-	.smallText {
-		font-size: 32px;
-		text-align: center;
-	}
-	.text {
-		font-size: 18px;
-		text-align: center;
-	}
-	.amatic {
-		font-family: 'Amatic SC', cursive;
-	}
-	.arial {
-		font-family: 'Arial';
-	}
-	.bold {
-		font-weight: bold;
-	}
-	.underline {
-		text-decoration: underline;
-	}
-	.red {
-		color:red;
-	}
-	input[type=text], select {
-		width: 200px;
-		display: inline-block;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		box-sizing: border-box;
-	}
-
-	button[type=submit] {
-		width: 150px;
-		height: 45px;
-		background-color: #4CAF50;
-		color: white;
-		padding: -10px 0px;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		margin-left: 25px;
-	}
-
-	button[type=submit]:hover {
-		background-color: #45a049;
-	}
-	#scoreTable {
-		width:100%;
-		min-height: 10px;
-		background-color: transparent;
-	}
-	.scoreRow {
-		width:100%;
-		height: 30px;
-		background-color: transparent;
-	}
-	.scoreDataLeft {
-		width:50%;
-		height: 10px;
-		padding-right: 15px;
-		background-color: transparent;
-		text-align: right;
-	}
-	.scoreDataRight {
-		width:50%;
-		height: 10px;
-		padding-left: 15px;
-		background-color: transparent;
-	}
-
-	#scoreTable_db {
-		width:100%;
-		min-height: 10px;
-		background-color: transparent;
-	}
-	.scoreRow_db  {
-		width:100%;
-		height: 30px;
-		background-color: transparent;
-	}
-	.scoreDataLeft_db  {
-		width:50%;
-		height: 10px;
-		padding-right: 15px;
-		background-color: transparent;
-		text-align: right;
-	}
-	.scoreDataRight_db  {
-		width:50%;
-		height: 10px;
-		padding-left: 15px;
-		background-color: transparent;
-	}
-</style>
+<link href="mainCSS.css" type="text/css" rel="stylesheet">
+<link href="cssReset.css" type="text/css" rel="stylesheet">
 
 </head>
 
@@ -192,37 +31,39 @@
 		<br><br>
 	</div>
 	
-	<hr><br>
+	<hr>
+	
+	<div id="wrapper"> 
+		<div id="content">
+			<div id="howto">
+				<span class="medText amatic bold underline">How to Start:</span>
 
-	<div id="content">
-		<div id="howto">
-			<span class="medText amatic bold underline">How to Start:</span>
+				<span class="text arial">
+					<br><br> Step 1: Type username above <br> Step 2: Click black sqaure <br><br>
 
-			<span class="text arial">
-				<br><br> Step 1: Type username above <br> Step 2: Click black sqaure <br><br>
+					<span class="medText amatic bold underline">Instructions:</span> <br><br>
+					You have a total of <span class="red bold">3 minutes</span> to get as many clicks as possible in... but that's too easy.
 
-				<span class="medText amatic bold underline">Instructions:</span> <br><br>
-				You have a total of <span class="red bold">3 minutes</span> to get as many clicks as possible in... but that's too easy.
+					<br><br> <span class="red bold">You can't click any later</span> than 10 seconds per click, and <span class="red bold">you can't press any sooner</span>  than... well... sometime between 8 seconds and 3 seconds per click.
 
-				<br><br> <span class="red bold">You can't click any later</span> than 10 seconds per click, and <span class="red bold">you can't press any sooner</span>  than... well... sometime between 8 seconds and 3 seconds per click.
+					<br><br> I'm not sure too be honest. That part, I'll leave up to you.
 
-				<br><br> I'm not sure too be honest. That part, I'll leave up to you.
+					<br><br> <span class="red bold">The goal of this game</span> is to fight against yourself in determining when the best time to click would be. You can always get a <span class="red bold">successful click at 3 seconds or below</span>, but you'll never reach the top of the leaderboards if you're too cautious!
+				</span>
+			</div>
 
-				<br><br> <span class="red bold">The goal of this game</span> is to fight against yourself in determining when the best time to click would be. You can always get a <span class="red bold">successful click at 3 seconds or below</span>, but you'll never reach the top of the leaderboards if you're too cautious!
-			</span>
+			<!-- Loading gif from http://stackoverflow.com/questions/36389206/jquery-load-page-with-slowly-and-with-loading-gif-effect -->
+			<div id="highscore_div">
+				<div align="right"><span class="largeText amatic bold ">Leaderboard:</span> <span class="smallText amatic"> (Top 15)</span></div>
+				<table id="scoreTable">
+					<tr class="scoreRow"><td class="scoreDataLeft"><span class="smallText amatic bold">Player:</span></td><td class="scoreDataRight"><span class="smallText amatic bold">Score:</span></td></tr>
+				</table>
+				<table id="scoreTable_db">
+					<tr class="scoreRow_db"><td class="scoreDataLeft_db"><span class="smallText amatic bold">Fetching</span></td><td class="scoreDataRight_db"><span class="smallText amatic bold"><img src="loading_gif.gif"></span></td></tr>
+				</table>
+			</div>
+			<div id="footer"></div>
 		</div>
-
-		<!-- Loading gif from http://stackoverflow.com/questions/36389206/jquery-load-page-with-slowly-and-with-loading-gif-effect -->
-		<div id="highscore_div">
-			<div align="right"><span class="largeText amatic bold ">Leaderboard:</span> <span class="smallText amatic"> (Top 15)</span></div>
-			<table id="scoreTable">
-				<tr class="scoreRow"><td class="scoreDataLeft"><span class="smallText amatic bold">Player:</span></td><td class="scoreDataRight"><span class="smallText amatic bold">Score:</span></td></tr>
-			</table>
-			<table id="scoreTable_db">
-				<tr class="scoreRow_db"><td class="scoreDataLeft_db"><span class="smallText amatic bold">Fetching</span></td><td class="scoreDataRight_db"><span class="smallText amatic bold"><img src="loading_gif.gif"></span></td></tr>
-			</table>
-		</div>
-		<div id="footer"></div>
 	</div>
 
 	<!-- AUDIO -->
@@ -290,13 +131,15 @@
 
 		var myName = document.querySelector('#name').value;
 
-		if(checkNameRules(myName)) {
-		  playerRef
-			.push({
-			  playerName: myName,
-			  playerScore: pScore,
-			})
-			playerForm.reset();
+		if(checkNameRules(myName)) { // Checks if name requirements are met
+			if(!hasUsername) { // Stops user from entering name more than once per page load
+			  playerRef
+				.push({
+				  playerName: myName,
+				  playerScore: pScore,
+				})
+				playerForm.reset();
+			}
 		} else {
 		  alert('Please enter a username. Must be between 3 and 15 characters.');
 		}
@@ -441,13 +284,13 @@
 			pName = document.getElementById('name').value;
 			audioClip("submitSound");
 		} else {
-			alert("You've already entered a username " + pName + "!");
+			alert("You've already entered a username, " + pName + "!");
 		}
 	 }
 
 	// Checks name creation rules
 	function checkNameRules(name) {
-		if(name != '' && name != null && name != '' && name != "" && name.length >= 3 && name.length <= 15 && /^[0-9a-zA-Z]+$/.test(name))
+		if(name != '' && name != null && name != '' && name != "" && name.length >= 3 && name.length <= 15 && /^[0-9a-zA-Z\s]+$/.test(name))
 			return true;
 		else
 			return false;
@@ -725,6 +568,14 @@
 
 	// Check game timer. If time runs out without a click, game over!
 	function checkGame() {
+		
+		// If game timer hits 0
+		if(gameTimer.time <= 0) {
+			checkHighScore();
+			gameOverScreen();
+		}
+		
+		// If 10 second countdown hits 0
 		if(clickMax.time <= 0) {
 			checkHighScore();
 			gameOverScreen();
@@ -845,6 +696,10 @@
 		context.font = medText.font;
 		context.fillStyle = gameTtle.myFill;
 		context.fillText("Please enter username below to start!", 125, 600);
+		
+		context.font = smallText.font;
+		context.fillStyle = gameTtle.myFill;
+		context.fillText("And read the damn instructions too", 225, 615);
 	}
 
 	// Check if player's score is higher than any of their previous attempts
