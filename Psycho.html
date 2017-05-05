@@ -202,7 +202,7 @@
 				<br><br> Step 1: Type username above <br> Step 2: Click black sqaure <br><br>
 
 				<span class="medText amatic bold underline">Instructions:</span> <br><br>
-				You have a total of <span class="red bold">5 minutes</span> to get as many clicks as possible in... but that's too easy.
+				You have a total of <span class="red bold">3 minutes</span> to get as many clicks as possible in... but that's too easy.
 
 				<br><br> <span class="red bold">You can't click any later</span> than 10 seconds per click, and <span class="red bold">you can't press any sooner</span>  than... well... sometime between 8 seconds and 3 seconds per click.
 
@@ -437,8 +437,12 @@
 
 	// Get player name from input box
 	function getPlayerName() {
-		pName = document.getElementById('name').value;
-		audioClip("submitSound");
+		if(!hasUsername) {
+			pName = document.getElementById('name').value;
+			audioClip("submitSound");
+		} else {
+			alert("You've already entered a username " + pName + "!");
+		}
 	 }
 
 	// Checks name creation rules
@@ -522,9 +526,9 @@
 
 	// Total Time for game
 	var gameTimer = {
- 		time:300,
+ 		time:180,
 		myFill:'black',
-		default:300
+		default:180
 	};
 
 	// Time left to clik
