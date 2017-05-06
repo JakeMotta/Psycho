@@ -293,7 +293,7 @@
 		if(name != '' && name != null && name != '' && name != "" && name.length >= 3 && name.length <= 15 && /^[0-9a-zA-Z\s]+$/.test(name))
 			return true;
 		else
-			return false;
+			return false;	
 	}
 
 </script>
@@ -498,6 +498,7 @@
 	// Update score
 	function updatePlayer() {
 		context.font = medText.font;
+		context.fill = gameTtle.myFill;
 		context.fillText("Points: " + player.points, 500, 45);
 	}
 
@@ -756,12 +757,14 @@
 
 	}
 
+	// Plays main music
 	function playMainMusic() {
 		var mainMusic = document.getElementById('mainMusic');
 		mainMusic.play();
 		mainMusic.volume = .7;
 	}
 
+	// Stops main music
 	function stopMainMusic() {
 		audioTimer = -1;
 		document.getElementById('mainMusic').pause();
@@ -773,14 +776,41 @@
 		console.log(turnNum);
 	}
 	
+	// Fading game instruction text
 	function updateInstructions() {
-		context.font = medText.font;
-		context.fillStyle = gameTtle.myFill;
-		context.fillText("Click before 0! ->", 50, 370);
 		
 		context.font = medText.font;
 		context.fillStyle = gameTtle.myFill;
-		context.fillText("Click after 0! ->", 100, 450);
+
+		// Fade effect for when to click
+		if(turnNum == 0) {
+			context.fillText("<< Click here", 384, 445);
+			context.fillText("Time until safe click >>", 13, 522);
+			context.fillText("Time left to click >>", 50, 372);
+		}
+		else if(turnNum > 0 && turnNum <= 1) {
+			context.fillStyle = "rgba(0, 0, 0, 0.7)";
+			context.fillText("<< Click here", 384, 445);
+			context.fillText("Time until safe click >>", 13, 522);
+			context.fillText("Time left to click >>", 50, 372);
+		}
+		else if(turnNum > 1 && turnNum <= 2) {
+			context.fillStyle = "rgba(0, 0, 0, 0.5)";
+			context.fillText("<< Click here", 384, 445);
+			context.fillText("Time until safe click >>", 13, 522);
+			context.fillText("Time left to click >>", 50, 372);
+		}
+		else if(turnNum > 2 && turnNum <= 3) {
+			context.fillStyle = "rgba(0, 0, 0, 0.3)";
+			context.fillText("<< Click here", 384, 445);
+			context.fillText("Time until safe click >>", 13, 522);
+			context.fillText("Time left to click >>", 50, 372);
+		}
+		else {
+			context.fillText("<< Click here", 384, 445, 0);
+			context.fillText("Time until safe click >>", 13, 522, 0);
+			context.fillText("Time left to click >>", 50, 372, 0);
+		}
 	}
 
 	// Main function calling for game updates
@@ -806,8 +836,8 @@
 					updateTimer();
 					updateClickMax();
 					updateClickMin();
-					updateInstructions();
 					updatePlayer();
+					updateInstructions();
 					checkGame();
 					drawRect();
 
